@@ -1,63 +1,43 @@
 import React from 'react';
+const produtos = [
+  {
+    id:1,
+    nome:'smartphone',
+    preco: 'R$ 2000',
+    cores:['#29D8D5','#252A34', '#FC3766'],
+  },
+  {
+    id:2,
+    nome:'Notebook',
+    preco: 'R$ 3000',
+    cores:['#ffs045','#d4394b', '#f37c59'],
+  },
+  {
+    id:3,
+    nome:'tablet',
+    preco: 'R$ 1500',
+    cores:['#365069','#47c1c8', '#f95786'],
+  },
+];
 
-const luana = {
-  cliente: 'luana',
-  idade: 27,
-  compras: [{
-      nome: 'Notebook',
-      preco: 'R$ 2500'
-    },
-    {
-      nome: 'Geladeira',
-      preco: 'R$ 3000'
-    },
-    {
-      nome: 'Celular',
-      preco: 'R$ 1500'
-    },
-  ],
-  ativa: true,
-}
-const Mario = {
-  cliente: 'Mario',
-  idade: 31,
-  compras: [{
-      nome: 'Notebook',
-      preco: 'R$ 2500'
-    },
-    {
-      nome: 'Geladeira',
-      preco: 'R$ 3000'
-    },
-    {
-      nome: 'Celular',
-      preco: 'R$ 1500'
-    },
-    {
-      nome: 'gUITARRA',
-      preco: 'R$ 3500'
-    },
-  ],
-  ativa: false,
-}
+
 const App = () => {
- const dados = luana;
+const dados = produtos.filter(
+({preco}) => Number(preco.replace("R$ ", "")) > 1500)
 
-const total = dados.compras.map(item => Number(item.preco.replace("R$",""))).reduce((a, b) => a + b);
-
-
-  return <div>
-    <p>Nome: {dados.cliente}</p>
-    <p>Idade: {dados.idade}</p>
-    <p>Situação: <span style={{color: dados.ativa ? 'green' : 'red'}}>{dados.ativa ? 'Ativa' : 'Inativa'}</span></p>
-    <p>Total: R$ {total}</p>
- {total > 10000 &&  <p>"Você está gastando muito zé"</p>}
-
-
-
+ return (
+   <section>
+{dados.map(({id, nome, preco, cores}) => (
+  <div key={id}>
+  <h1>{nome}</h1>
+  <p>Preco: {preco}</p>
+  <ul>
+    {cores.map((cor) => (
+  <li style={{backgroundColor: cor, color:"white"}}key={cor}>{cor}</li>))}</ul>
   </div>
-
- 
+))}
+   </section>
+ );
 };
 
 export default App;
