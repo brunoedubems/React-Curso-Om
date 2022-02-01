@@ -1,12 +1,19 @@
 import React from 'react';
-import './App.css';
-import produto from './produto';
+import Produto from './Produto';
 
 const App = () => {
 const [dados, setDados] = React.useState(null);
+const [carregando, setCarregando] = React.useState(null);
 
- function handleClick(event) { 
-   console.log(event.target.innerText);
+async function handleClick(event) { 
+  setCarregando(true);
+   const response = await fetch(`https://ranekapi.origamid.dev/json/api/produto/${event.target
+   .innerText}`,
+   );
+   const json =  await response.json();
+setDados(json);
+setCarregando(false);
+
  }
   
   
@@ -15,7 +22,9 @@ const [dados, setDados] = React.useState(null);
   <button style={{margin: '.5rem'}} onClick={handleClick}>notebook</button>
   <button style={{margin: '.5rem'}} onClick={handleClick}>Smartphone</button>
   <button style={{margin: '.5rem'}} onClick={handleClick}>tablet</button>
-  <produto/>
+  
+  {carregando && <p>Carregando.... acalma carai</p>}
+  {!carregando && dados && <Produto dados={dados}/>}
 </div>
   );
 }
