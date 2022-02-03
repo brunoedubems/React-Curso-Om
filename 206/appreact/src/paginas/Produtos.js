@@ -2,7 +2,6 @@ import React from 'react'
 import Titulo from './Titulo';
 import Produto from './Produto';
 
-
 const Produtos = () => {
 const produtos = [
     {nome:'not', propriedades:['16gb ram', '512gb']},
